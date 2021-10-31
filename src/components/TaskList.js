@@ -5,6 +5,7 @@ import FormRenderer from './FormRenderer'
 import Modal from './Modal'
 import '../style/taskList.scss'
 import { useValidateTasksForm } from '../formInputs/useValidateTasksForm'
+import TaskListModal from './TaskListModal'
 
 const TaskList = () => {
   const {
@@ -12,12 +13,6 @@ const TaskList = () => {
     deleteTask,
     editTask,
   } = useContext(GlobalContext)
-  let {
-    validateTaskForm,
-    errors,
-    isSubmitted,
-    validateFormElement,
-  } = useValidateTasksForm()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [prefillEditTask, setprefillEditTask] = useState(null)
@@ -30,54 +25,13 @@ const TaskList = () => {
     setModalIsOpen(true)
   }
 
-  const handleEditSubmit = (e, id) => {
-    const { projectName, taskName, comments } = e.target
-
-    let hasErrors = validateTaskForm({
-      taskName: taskName.value,
-      comments: comments.value,
-    })
-    if (hasErrors) return
-
-    editTask({
-      taskName: taskName.value,
-      projectName: projectName.value,
-      comments: comments.value,
-      id: id,
-    })
-    setModalIsOpen(false)
-  }
-
   return (
     <>
-      <Modal isOpen={modalIsOpen}>
-        <>
-          <div>
-            <h3 className="d-inline">Edit Task</h3>
-            <button
-              onClick={() => setModalIsOpen(false)}
-              type="button"
-              className="btn-close float-end"
-            ></button>
-          </div>
-
-          <hr></hr>
-
-          <FormRenderer
-            onSubmit={handleEditSubmit}
-            onCancel={() => {
-              setModalIsOpen(false)
-            }}
-            submitButtonName="Update Task"
-            cancelButtonName="Cancel"
-            inputs={createTaskFormInputs}
-            prefillValues={prefillEditTask}
-            errors={errors}
-            isSubmitted={isSubmitted}
-            validateFormElement={validateFormElement}
-          ></FormRenderer>
-        </>
-      </Modal>
+      <TaskListModal
+        modalIsOpen={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+        prefillEditTask={prefillEditTask}
+      ></TaskListModal>
       <div className="container">
         <div className="row py-4 align-items-start fw-bolder bg-secondary text-white">
           <div className="col">Task ID</div>

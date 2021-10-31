@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export const useValidateTasksForm = () => {
   let OnlyTextAllowed = {
@@ -83,10 +83,17 @@ export const useValidateTasksForm = () => {
     setErrors(tempErrors)
   }
 
+  function unMountForm() {
+    tempErrors = {}
+    setErrors({})
+    setisSubmitted(false)
+  }
+
   return {
     validateTaskForm, // perform validation all form elements
     errors, // state for errors
     isSubmitted, // state to track if form is submitted atleast once, so onChange on form will trigger based on this
     validateFormElement, // perform validation on single element
+    unMountForm, // cleanup
   }
 }
