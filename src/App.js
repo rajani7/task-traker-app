@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import './style/index.scss'
+import 'bootstrap/dist/css/bootstrap.css'
+import CreateTask from './components/CreateTask'
+import TaskList from './components/TaskList'
+import { GlobalContext, GlobalProvider } from './store/GlobalState'
+import { useContext } from 'react'
 
 function App() {
+  const { companyName } = useContext(GlobalContext)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <GlobalProvider>
+        <header className='bg-secondary py-4 text-white fw-bold ps-4 fs-4 mb-4'>{companyName}</header>
+        <main>
+          <section>
+            <CreateTask></CreateTask>
+          </section>
+          <hr />
+          <section>
+            <TaskList></TaskList>
+          </section>
+        </main>
+      </GlobalProvider>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

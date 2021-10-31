@@ -1,0 +1,18 @@
+.customModal {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(70, 70, 70, 0.63);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .customModal-content {
+    max-height: 75vh;
+    overflow-y: auto;
+    box-shadow: 0 0 2px 0 rgb(187, 187, 187);
+    width: 400px;
+  }
+}

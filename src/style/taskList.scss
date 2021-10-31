@@ -1,0 +1,8 @@
+.taskItem {
+  max-height: 200px;
+  overflow-y: auto;
+
+  &:nth-child(even) {
+    background-color: rgb(238, 238, 238);
+  }
+}
